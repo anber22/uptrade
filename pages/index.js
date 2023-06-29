@@ -586,6 +586,7 @@ export async function getStaticProps() {
     reviews: reviewsResponse.reviews.slice(0, 3),
   };
 
+  console.log("test");
   return {
     props: {
       listedProduct: listedProduct.data,
