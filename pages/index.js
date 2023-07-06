@@ -79,7 +79,7 @@ export default function Home({
               </h1>)
             }
             <div className="brand-tablist">
-              <h3 className={ "sub-title cursor" + (buyStatus === 0 ? " title-selected" : '') } onClick={() => {console.log('触发点击')}}>
+              <h3 className={ "sub-title cursor" + (buyStatus === 0 ? " title-selected" : '') } onClick={() => {setBuyStatus(0)}}>
                 Buy a Phone
               </h3>
               <h3 className={ "sub-title cursor" + (buyStatus === 1 ? " title-selected" : '') } onClick={() => {setBuyStatus(1)}}>
