@@ -1565,7 +1565,7 @@ function SellModel({
 
             <div className="divider" />
 
-            {reviewsInfo.reviews.map((x) => {
+            {reviewsInfo.reviews.map((x, index) => {
                  return rangeIndex === index ?
                  (<div key={x.store_review_id} className="review-card">
                    <div className="review-author">{`${x.reviewer.first_name} ${x.reviewer.last_name}`}</div>
