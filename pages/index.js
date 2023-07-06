@@ -82,7 +82,7 @@ export default function Home({
               <h3 className={ "sub-title cursor" + (buyStatus === 0 ? " title-selected" : '') } onClick={() => {console.log('触发点击')}}>
                 Buy a Phone
               </h3>
-              <h3 className={ "sub-title cursor" + (buyStatus === 1 ? " title-selected" : '') } onClick={() => setBuyStatus(1)}>
+              <h3 className={ "sub-title cursor" + (buyStatus === 1 ? " title-selected" : '') } onClick={() => {setBuyStatus(1)}}>
                 Trade in/Sell
               </h3>
             </div>
