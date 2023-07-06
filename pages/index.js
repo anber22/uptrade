@@ -6,8 +6,7 @@ import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import pageCss from "!raw-loader!../styles/buy-in-phone.css";
 
-
-export default function Home({
+function Test({
   listedProduct,
   reviewsInfo,
   navbar,
@@ -539,7 +538,9 @@ export default function Home({
     </div>
   );
 }
-
+export default function Home(){
+  return <Test/>
+}
 export async function getStaticProps() {
   const listedProduct = await fetch(
     "https://api-v2.276qa.com/search/newly-listed-product"
