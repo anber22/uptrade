@@ -209,6 +209,9 @@
     justify-content: flex-end;
     height: 82px;
   }
+  .review-box{
+    background-color: red;
+  }
   .condition-description-tips {
     margin-top: 36px;
     margin-bottom: 64px;

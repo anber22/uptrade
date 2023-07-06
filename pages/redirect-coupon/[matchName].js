@@ -1,35 +1,39 @@
 import { NextSeo } from "next-seo";
 import pageCss from "!raw-loader!../../styles/redirect-coupon.css";
 import Head from "next/head";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useCopyToClipboard, useLocation } from "react-use";
-import urlcat from "urlcat";
 export default function RedirectCoupon() {
   const location = useLocation();
-  const router = useRouter();
-  const { matchName, redirectUrl, id, type } = router.query;
   const [state, handleCopy] = useCopyToClipboard();
-
+  const [redirectUrl, setRedirectUrl] = useState()
+  const [matchName, setMatchName] = useState()
+  const [id, setId] = useState()
+  const [type, setType] = useState()
+  
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    const params = new URLSearchParams(location.search);
-    const id = params.get("id");
-    if (!id) return;
-
-    fetch("https://api-v2.276qa.com/statistics/request-record", {
-      method: "POST",
-      headers: {
-        ["Content-Type"]: "application/json",
-      },
-      body: JSON.stringify({
-        productId: id.split("?")[0],
-        targetUrl: location.href,
-        type: type === "tradein" ? "TRADE_IN" : "BUY",
-      }),
-    });
-  }, [id, type]);
-
+    console.log('初始化')
+    if(window && window.urlObj){
+      setRedirectUrl(window.urlObj.redirectUrl)
+      setMatchName(window.urlObj.matchName)
+      setId(window.urlObj.id)
+      setType(window.urlObj.type)
+      fetch("https://api-v2.276qa.com/statistics/request-record", {
+        method: "POST",
+        headers: {
+          ["Content-Type"]: "application/json",
+        },
+        body: JSON.stringify({
+          productId: window.urlObj.id,
+          targetUrl: window.urlObj.redirectUrl,
+          type: window.urlObj.type === "tradein" ? "TRADE_IN" : "BUY",
+        }),
+      });
+    } else if(window && !window.urlObj) {
+      console.log('页面地址', window.location)
+      window.location.replace(window.origin)
+    }
+  }, []);
   return (
     <>
       <Head>

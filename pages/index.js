@@ -109,7 +109,7 @@ export default function Home({
             >
               <div>
                 <a href="/buy-used-refurbished-apple" className="brand">
-                  <amp-img
+                  <img
                     width="70"
                     height="70"
                     alt="apple"
@@ -121,7 +121,7 @@ export default function Home({
               </div>
               <div>
                 <a href="/buy-used-refurbished-samsung" className="brand">
-                  <amp-img
+                  <img
                     width="70"
                     height="70"
                     alt="Samsung"
@@ -133,7 +133,7 @@ export default function Home({
               </div>
               <div>
                 <a href="/buy-used-refurbished-google" className="brand">
-                  <amp-img
+                  <img
                     width="70"
                     height="70"
                     alt="Google"
@@ -151,7 +151,7 @@ export default function Home({
             >
               <div>
                 <a href="/trade-in-apple" className="brand">
-                  <amp-img
+                  <img
                     width="70"
                     height="70"
                     alt="apple"
@@ -163,7 +163,7 @@ export default function Home({
               </div>
               <div>
                 <a href="/trade-in-samsung" className="brand">
-                  <amp-img
+                  <img
                     width="70"
                     height="70"
                     alt="Samsung"
@@ -175,7 +175,7 @@ export default function Home({
               </div>
               <div>
                 <a href="/trade-in-phone" className="brand">
-                  <amp-img
+                  <img
                     width="70"
                     height="70"
                     alt="Google"
@@ -189,7 +189,7 @@ export default function Home({
             </div>
           </div>
 
-          <amp-img
+          <img
             src="/Home.png"
             alt="home"
             title="home"
@@ -226,7 +226,7 @@ export default function Home({
                 <div className="phone-card" key={index}>
                   <div className="image-container">
                     {x.photoUrl ? (
-                      <amp-img
+                      <img
                         alt="phone"
                         width="120"
                         height="120"
@@ -261,7 +261,7 @@ export default function Home({
                 <div className="phone-card" key={index}>
                   <div className="image-container">
                     {x.photoUrl ? (
-                      <amp-img
+                      <img
                         alt="phone"
                         width="120"
                         height="120"
@@ -319,7 +319,7 @@ export default function Home({
                 <div className="phone-card" key={index}>
                   <div className="image-container">
                     {x.photoUrl ? (
-                      <amp-img
+                      <img
                         alt="phone"
                         width="120"
                         height="120"
@@ -353,7 +353,7 @@ export default function Home({
                 <div className="phone-card" key={index}>
                   <div className="image-container">
                     {x.photoUrl ? (
-                      <amp-img
+                      <img
                         alt="phone"
                         width="120"
                         height="120"
@@ -400,7 +400,7 @@ export default function Home({
                 <div className="review-info">
                   <div className="review-ratings">
                     {new Array(x.rating).fill("").map((x, index) => (
-                      <amp-img
+                      <img
                         key={index}
                         width="30"
                         height="30"
@@ -436,7 +436,7 @@ export default function Home({
                   <div className="review-info">
                     <div className="review-ratings">
                       {new Array(x.rating).fill("").map((x, index) => (
-                        <amp-img
+                        <img
                           key={index}
                           width="30"
                           height="30"
@@ -466,7 +466,7 @@ export default function Home({
             target="_blank"
             rel="noreferrer"
           >
-            <amp-img
+            <img
               src="/brand/abc.png"
               width="178"
               height="168"
@@ -483,7 +483,7 @@ export default function Home({
             rel="noreferrer"
             href="https://www.nbcnewyork.com/entertainment/the-scene/new-york-live/early-cyber-monday-deals-with-couponology-com/3414992/"
           >
-            <amp-img
+            <img
               src="/brand/bbc.png"
               width="180"
               height="116"
@@ -500,7 +500,7 @@ export default function Home({
             rel="noreferrer"
             href="https://www.gearpatrol.com/tech/a37211440/uptrade-used-smartphones/"
           >
-            <amp-img
+            <img
               src="/brand/gear.png"
               width="300"
               height="44"
@@ -520,7 +520,7 @@ export default function Home({
             rel="noreferrer"
             href="https://www.androidcentral.com/best-places-buy-used-phone"
           >
-            <amp-img
+            <img
               src="/brand/android-central.png"
               width="300"
               height="100"
@@ -539,7 +539,7 @@ export default function Home({
             target="_blank"
             rel="noreferrer"
           >
-            <amp-img
+            <img
               src="/brand/ios-hacker.png"
               width="320"
               height="56"

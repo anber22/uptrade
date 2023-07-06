@@ -3143,7 +3143,9 @@ button {
     align-items: center;
     padding: 19.3vw 4.5vw 24vw;
   }
-
+  .review-box{
+    background-color: red;
+  }
   .home-reviews .view-more-link {
     margin-top: 24px;
     margin-bottom: 24px;
@@ -4964,7 +4966,10 @@ button {
     font-size: 16px;
     font-weight: 700;
   }
-
+  .other-content .review-box {
+    display: flex;
+    background-color: red;
+  }
   .mobile-reviews-title .reviews-from {
     display: flex;
 

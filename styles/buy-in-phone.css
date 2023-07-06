@@ -6,7 +6,38 @@
   .buy-phone-page -title {
     padding-top: 93px;
   }
-
+  .review-box{
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+    position: relative;
+  }
+  .last-one{
+    width: 35px;
+    height: 35px;
+    padding: 10px;
+    position: absolute;
+    top: 140px;
+    background-color:rgba(164, 176, 190, 0.8);
+  }
+  .next-one{
+    width: 35px;
+    height: 35px;
+    padding: 10px;
+    position: absolute;
+    right: 20px;
+    top: 140px;
+    background-color:rgba(164, 176, 190, 0.85);
+  }
+  .review-card{
+    width: 100%;
+    display: flex;
+    flex-shrink: 1;
+    flex-direction: column;
+  }
+  .cursor{
+    cursor: pointer;
+  }
   .buy-phone-page-title > h1 {
     font-size: 26px;
     font-weight: 600;

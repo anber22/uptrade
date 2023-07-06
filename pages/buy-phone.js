@@ -316,7 +316,31 @@ export default function BuyPhone({
       window.scrollTo(0, 350);
     }
   }, [router]);
-
+  const getUrl = item =>{
+    var urlObj = {}
+    let result = ''
+    if(item.merchant === "SmartphonesPLUS"){
+      result = urlcat(`/redirect-coupon/buy`)
+      urlObj = {
+        gradeAndMerchant: item.merchant,
+        redirectUrl: item.buyUrl,
+        id: item.productId,
+      }
+    }else{
+      result = urlcat(`/redirect/buy`)
+      urlObj = {
+        merchant: item.merchant,
+        gradeAndMerchant: `buy-${item.name.replace(
+          /\s*/g,
+          ""
+        )}-${item.condition}-${item.merchant}`,
+        redirectUrl: item.buyUrl,
+        id: item.productId
+      }
+    }
+    var newwin = window.open(result)
+    newwin.urlObj = urlObj
+  }
   return (
     <>
       <Head>
@@ -752,28 +776,29 @@ export default function BuyPhone({
             <>
               <div className="desktop-phone-list">
                 {(data?.data ?? initData?.data)?.map((item, index) => (
-                  <a
-                    key={index}
-                    href={
-                      item.merchant === "SmartphonesPLUS"
-                        ? urlcat(`/redirect-coupon/:gradeAndMerchant`, {
-                            gradeAndMerchant: item.merchant,
-                            redirectUrl: item.buyUrl,
-                            id: item.productId,
-                          })
-                        : urlcat(`/redirect/:gradeAndMerchant`, {
-                            gradeAndMerchant: `buy-${item.name.replace(
-                              /\s*/g,
-                              ""
-                            )}-${item.condition}-${item.merchant}`,
-                            redirectUrl: item.buyUrl,
-                            id: item.productId,
-                          })
-                    }
-                    target="_blank"
-                    rel="nofollow noreferrer"
-                    className="phone-list-item"
-                  >
+                  // <a
+                  //   key={index}
+                  //   href={
+                  //     item.merchant === "SmartphonesPLUS"
+                  //       ? urlcat(`/redirect-coupon/:gradeAndMerchant`, {
+                  //           gradeAndMerchant: item.merchant,
+                  //           redirectUrl: item.buyUrl,
+                  //           id: item.productId,
+                  //         })
+                  //       : urlcat(`/redirect/:gradeAndMerchant`, {
+                  //           gradeAndMerchant: `buy-${item.name.replace(
+                  //             /\s*/g,
+                  //             ""
+                  //           )}-${item.condition}-${item.merchant}`,
+                  //           redirectUrl: item.buyUrl,
+                  //           id: item.productId,
+                  //         })
+                  //   }
+                  //   target="_blank"
+                  //   rel="nofollow noreferrer"
+                  //   className="phone-list-item"
+                  // >
+                  <div key={index} className="phone-list-item" onClick={() => getUrl(item)}>
                     <div className="img-container">
                       <img width="100" height="100" src={item.brandLogoUrl} />
                     </div>
@@ -819,33 +844,34 @@ export default function BuyPhone({
                         </span>
                       </div>
                     )}
-                  </a>
+                  </div>
                 ))}
               </div>
               <div className="mobile-phone-list">
                 {(data?.data ?? initData?.data)?.map((item, index) => (
-                  <a
-                    key={index}
-                    href={
-                      item.merchant === "SmartphonesPLUS"
-                        ? urlcat(`/redirect-coupon/:gradeAndMerchant`, {
-                            gradeAndMerchant: item.merchant,
-                            redirectUrl: item.buyUrl,
-                            id: item.productId,
-                          })
-                        : urlcat(`/redirect/:gradeAndMerchant`, {
-                            gradeAndMerchant: `buy-${item.name.replace(
-                              /\s*/g,
-                              ""
-                            )}-${item.condition}-${item.merchant}`,
-                            redirectUrl: item.buyUrl,
-                            id: item.productId,
-                          })
-                    }
-                    className="phone-list-item"
-                    target="_blank"
-                    rel="nofollow noreferrer"
-                  >
+                  // <a
+                  //   key={index}
+                  //   href={
+                  //     item.merchant === "SmartphonesPLUS"
+                  //       ? urlcat(`/redirect-coupon/:gradeAndMerchant`, {
+                  //           gradeAndMerchant: item.merchant,
+                  //           redirectUrl: item.buyUrl,
+                  //           id: item.productId,
+                  //         })
+                  //       : urlcat(`/redirect/:gradeAndMerchant`, {
+                  //           gradeAndMerchant: `buy-${item.name.replace(
+                  //             /\s*/g,
+                  //             ""
+                  //           )}-${item.condition}-${item.merchant}`,
+                  //           redirectUrl: item.buyUrl,
+                  //           id: item.productId,
+                  //         })
+                  //   }
+                  //   className="phone-list-item"
+                  //   target="_blank"
+                  //   rel="nofollow noreferrer"
+                  // >
+                  <div className="phone-list-item" key={index} onClick={() => getUrl(item)}>
                     <div className="top">
                       <img width="50" height="50" src={item.brandLogoUrl} />
                       <div className={`condition ${item.condition} `}>
@@ -882,7 +908,7 @@ export default function BuyPhone({
                         </span>
                       )}
                     </div>
-                  </a>
+                  </div>
                 ))}
               </div>
               <div className="next-page-container">
@@ -967,6 +993,7 @@ export async function getStaticProps() {
     orderBy: "RECOMMENDED",
   };
 
+  console.log("fetch category data");
   const data = await fetch(
     "https://api-v2.276qa.com/search/category/values"
   ).then((response) => response.json());
