@@ -35,8 +35,8 @@
     flex-shrink: 1;
     flex-direction: column;
   }
-  .cursor{
-    cursor: pointer;
+  .buy-model-page-faq-content{
+    padding-bottom: 20px;
   }
   .buy-phone-page-title > h1 {
     font-size: 26px;
@@ -67,7 +67,15 @@
     display: flex;
     justify-content: center;
   }
-
+  .cursor{
+    cursor: pointer;
+  }
+  .buy-model-page-faq-content{
+    color: gray !important;
+    font-size: 16px !important;
+    padding-left: 24px;
+    padding-bottom: 20px;
+  }
   .buy-phone-page .buy-phone-content {
     max-width: 62%;
     min-width: 800px;

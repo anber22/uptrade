@@ -1184,6 +1184,7 @@ function BuyModel({
                           minHeight: 62,
                           alignItems: "center",
                         }}
+                        onClick={() => changeFAQ(index)}
                       >
                         <img
                           src="/svg/arrow-down.svg"
@@ -1192,7 +1193,6 @@ function BuyModel({
                             width: 24,
                             height: 24,
                           }}
-                          onClick={() => changeFAQ(index)}
                         />
                         <div className="buy-model-faq-title-content">
                           {title}
