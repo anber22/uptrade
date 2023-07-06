@@ -34,11 +34,6 @@ export default function Home({
           name="facebook-domain-verification"
           content="xqixprug1s29tiyy50ug7ydb5cup5f"
         />
-        <script
-          async
-          custom-element="amp-carousel"
-          src="https://cdn.ampproject.org/v0/amp-carousel-0.2.js"
-        ></script>
         <style
           amp-custom=""
           dangerouslySetInnerHTML={{
