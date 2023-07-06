@@ -1,9 +1,9 @@
 import Head from "next/head";
 import { NextSeo } from "next-seo";
+import { useState } from "react";
 import { getNavBar } from "../utils/getNavBar";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
-import { useState } from "react";
 import pageCss from "!raw-loader!../styles/buy-in-phone.css";
 
 
@@ -79,7 +79,7 @@ export default function Home({
               </h1>)
             }
             <div className="brand-tablist">
-              <h3 className={ "sub-title cursor" + (buyStatus === 0 ? " title-selected" : '') } onClick={() => setBuyStatus(0)}>
+              <h3 className={ "sub-title cursor" + (buyStatus === 0 ? " title-selected" : '') } onClick={() => {console.log('触发点击')}}>
                 Buy a Phone
               </h3>
               <h3 className={ "sub-title cursor" + (buyStatus === 1 ? " title-selected" : '') } onClick={() => setBuyStatus(1)}>
