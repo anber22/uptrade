@@ -790,28 +790,29 @@ function BuyModel({
 
             <div className="mobile-phone-list">
               {relatedGoods?.map((item) => (
-                <a
-                  key={item.productId}
-                  href={
-                    item.merchant === "SmartphonesPLUS"
-                      ? urlcat(`/redirect-coupon/:gradeAndMerchant`, {
-                          gradeAndMerchant: item.merchant,
-                          redirectUrl: item.buyUrl,
-                          id: item.productId,
-                        })
-                      : urlcat(`/redirect/:gradeAndMerchant`, {
-                          gradeAndMerchant: `buy-${item.name?.replace(
-                            /\s*/g,
-                            ""
-                          )}-${item.condition}-${item.merchant}`,
-                          redirectUrl: item.buyUrl,
-                          id: item.productId,
-                        })
-                  }
-                  target="_blank"
-                  rel="noreferrer"
-                  className="phone-list-item"
-                >
+                // <a
+                //   key={item.productId}
+                //   href={
+                //     item.merchant === "SmartphonesPLUS"
+                //       ? urlcat(`/redirect-coupon/:gradeAndMerchant`, {
+                //           gradeAndMerchant: item.merchant,
+                //           redirectUrl: item.buyUrl,
+                //           id: item.productId,
+                //         })
+                //       : urlcat(`/redirect/:gradeAndMerchant`, {
+                //           gradeAndMerchant: `buy-${item.name?.replace(
+                //             /\s*/g,
+                //             ""
+                //           )}-${item.condition}-${item.merchant}`,
+                //           redirectUrl: item.buyUrl,
+                //           id: item.productId,
+                //         })
+                //   }
+                //   target="_blank"
+                //   rel="noreferrer"
+                //   className="phone-list-item"
+                // >
+                <div key={item.productId} className="phone-list-item" onClick={() => {getUrl(item)}}>
                   <div className="top">
                     {item.brandLogoUrl ? (
                       <img width="50" height="50" src={item.brandLogoUrl} />
@@ -847,7 +848,7 @@ function BuyModel({
                       <span className="price">${item.currentPrice / 100}</span>
                     )}
                   </div>
-                </a>
+                </div>
               ))}
             </div>
             <div className="model-related-content-footer">
