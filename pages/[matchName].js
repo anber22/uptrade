@@ -1284,6 +1284,16 @@ function SellModel({
     newwin.urlObj = urlObj
     console.log('xxxxx', newwin.urlObj)
   }
+  const [rangeIndex, setRangeIndex] = useState(0)
+  const changeRangeIndex = (index) => {
+    if (index === 1) {
+      if (rangeIndex < reviewsInfo.reviews.length) {
+        setRangeIndex(rangeIndex + 1);
+      }
+    } else if (rangeIndex > 0) {
+      setRangeIndex(rangeIndex - 1);
+    }
+  }
   return (
     <div>
       <Head>
@@ -1556,29 +1566,37 @@ function SellModel({
             <div className="divider" />
 
             {reviewsInfo.reviews.map((x) => {
-              return (
-                <div key={x.store_review_id} className="review-card">
-                  <div className="review-author">{`${x.reviewer.first_name} ${x.reviewer.last_name}`}</div>
-                  <div className="review-info">
-                    <div className="review-ratings">
-                      {new Array(x.rating).fill("").map((x, index) => (
-                        <img
-                          key={index}
-                          width="24"
-                          height="24"
-                          alt="rating"
-                          src="/rating.svg"
-                        />
-                      ))}
-                    </div>
-                  </div>
-                  <div
-                    className="review-content"
-                    dangerouslySetInnerHTML={{ __html: x.comments }}
-                  ></div>
-                </div>
-              );
-            })}
+                 return rangeIndex === index ?
+                 (<div key={x.store_review_id} className="review-card">
+                   <div className="review-author">{`${x.reviewer.first_name} ${x.reviewer.last_name}`}</div>
+                   <div className="review-info">
+                     <div className="review-ratings">
+                       {new Array(x.rating).fill("").map((x, index) => (
+                         <img
+                           key={index}
+                           width="24"
+                           height="24"
+                           alt="rating"
+                           src="/rating.svg"
+                         />
+                       ))}
+                     </div>
+                   </div>
+                   <div
+                     className="review-content"
+                     dangerouslySetInnerHTML={{ __html: x.comments }}
+                   ></div>
+                 </div>)
+                 : false
+             })}
+             { rangeIndex > 0 ? (
+               <img src="/left-white-arrow.png" className="last-one" onClick={() => changeRangeIndex(-1)}/>
+               ) : '' 
+             }
+             { rangeIndex < (reviewsInfo.reviews.length - 1) ? (
+               <img src="/right-white-arrow.png" className="next-one" onClick={() => changeRangeIndex(1)}/>
+               ) : '' 
+             }
             <div className="model-reviews-footer">
               <a href="/reviews">
                 <button>See All Reviews</button>

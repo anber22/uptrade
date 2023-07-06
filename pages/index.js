@@ -3,7 +3,9 @@ import { NextSeo } from "next-seo";
 import { getNavBar } from "../utils/getNavBar";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
-export const config = { amp: true };
+import { useState } from "react";
+import pageCss from "!raw-loader!../styles/buy-in-phone.css";
+
 
 export default function Home({
   listedProduct,
@@ -14,6 +16,17 @@ export default function Home({
   sellAppleList,
   sellListData,
 }) {
+  const [rangeIndex, setRangeIndex] = useState(0)
+  const [buyStatus, setBuyStatus] = useState(0)
+  const changeRangeIndex = (index) => {
+    if (index === 1) {
+      if (rangeIndex < reviewsInfo.reviews.length) {
+        setRangeIndex(rangeIndex + 1);
+      }
+    } else if (rangeIndex > 0) {
+      setRangeIndex(rangeIndex - 1);
+    }
+  }
   return (
     <div>
       <Head>
@@ -26,6 +39,12 @@ export default function Home({
           custom-element="amp-carousel"
           src="https://cdn.ampproject.org/v0/amp-carousel-0.2.js"
         ></script>
+        <style
+          amp-custom=""
+          dangerouslySetInnerHTML={{
+            __html: pageCss,
+          }}
+        />
       </Head>
       <NextSeo
         title="Buy Used Phones | Sell My Phone | UpTrade"
@@ -47,148 +66,117 @@ export default function Home({
           site_name: "UpTrade",
         }}
       />
-      <amp-state id="currentTab">
-        <script
-          type="application/json"
-          dangerouslySetInnerHTML={{
-            __html: `{ "current": "apple" }`,
-          }}
-        ></script>
-      </amp-state>
-      <amp-state id="currentSellTab">
-        <script
-          type="application/json"
-          dangerouslySetInnerHTML={{
-            __html: `{ "current": "apple" }`,
-          }}
-        ></script>
-      </amp-state>
-      <amp-state id="currentType">
-        <script
-          type="application/json"
-          dangerouslySetInnerHTML={{
-            __html: `{ "current": "buy" }`,
-          }}
-        ></script>
-      </amp-state>
       <Header navbar={navbar} sellNavbar={sellNavbar} />
       <main className="home-page">
         <div className="home-content">
           <div className="home-left">
-            <h1
+            { buyStatus === 0 ? (<h1
               className="title-show"
-              data-amp-bind-class="currentType.current == 'buy' ? 'title-show' : 'title-hidden'"
             >
               Buy The Best Used <br />
               Phones For Less.
-            </h1>
-            <h1
-              className="title-hidden"
-              data-amp-bind-class="currentType.current == 'sell' ? 'title-show' : 'title-hidden'"
-            >
-              Trade in / Sell Your <br />
-              Phones For More.
-            </h1>
-
-            <amp-selector
-              role="tablist"
-              className="brand-tablist"
-              on={`select: AMP.setState({ currentType: { current: event.targetOption }, selected: selected ? selected : "Apple" })`}
-            >
-              <h3 className="sub-title" role="tab" selected option="buy">
+            </h1>) :
+              (<h1
+                className="title-show"
+              >
+                Trade in / Sell Your <br />
+                Phones For More.
+              </h1>)
+            }
+            <div className="brand-tablist">
+              <h3 className={ "sub-title cursor" + (buyStatus === 0 ? " title-selected" : '') } onClick={() => setBuyStatus(0)}>
                 Buy a Phone
               </h3>
-              <h3 className="sub-title" option="sell">
+              <h3 className={ "sub-title cursor" + (buyStatus === 1 ? " title-selected" : '') } onClick={() => setBuyStatus(1)}>
                 Trade in/Sell
               </h3>
-            </amp-selector>
-
-            <div
-              className="brands"
-              data-amp-bind-class="currentType.current == 'buy' ? 'brands' : 'brands-hidden'"
-            >
-              <div>
-                <a href="/buy-used-refurbished-apple" className="brand">
-                  <img
-                    width="70"
-                    height="70"
-                    alt="apple"
-                    title="apple"
-                    src="/brand/Apple.svg"
-                  />
-                </a>
-                <div className="brand-name">Apple</div>
-              </div>
-              <div>
-                <a href="/buy-used-refurbished-samsung" className="brand">
-                  <img
-                    width="70"
-                    height="70"
-                    alt="Samsung"
-                    title="Samsung"
-                    src="/brand/Samsung.svg"
-                  />
-                </a>
-                <div className="brand-name">Samsung</div>
-              </div>
-              <div>
-                <a href="/buy-used-refurbished-google" className="brand">
-                  <img
-                    width="70"
-                    height="70"
-                    alt="Google"
-                    title="Google"
-                    src="/brand/Google.svg"
-                  />
-                </a>
-                <div className="brand-name">Google</div>
-              </div>
             </div>
-
-            <div
-              className="brands-hidden"
-              data-amp-bind-class="currentType.current == 'sell' ? 'brands' : 'brands-hidden'"
-            >
-              <div>
-                <a href="/trade-in-apple" className="brand">
-                  <img
-                    width="70"
-                    height="70"
-                    alt="apple"
-                    title="apple"
-                    src="/brand/Apple.svg"
-                  />
-                </a>
-                <div className="brand-name">Apple</div>
-              </div>
-              <div>
-                <a href="/trade-in-samsung" className="brand">
-                  <img
-                    width="70"
-                    height="70"
-                    alt="Samsung"
-                    title="Samsung"
-                    src="/brand/Samsung.svg"
-                  />
-                </a>
-                <div className="brand-name">Samsung</div>
-              </div>
-              <div>
-                <a href="/trade-in-phone" className="brand">
-                  <img
-                    width="70"
-                    height="70"
-                    alt="Google"
-                    title="Google"
-                    src="/svg/dot.svg"
-                    className="three-dot"
-                  />
-                </a>
-                <div className="brand-name">Other</div>
-              </div>
-            </div>
+            {
+              buyStatus === 0 ? (<div
+                className="brands"
+              >
+                <div>
+                  <a href="/buy-used-refurbished-apple" className="brand">
+                    <img
+                      width="70"
+                      height="70"
+                      alt="apple"
+                      title="apple"
+                      src="/brand/Apple.svg"
+                    />
+                  </a>
+                  <div className="brand-name">Apple</div>
+                </div>
+                <div>
+                  <a href="/buy-used-refurbished-samsung" className="brand">
+                    <img
+                      width="70"
+                      height="70"
+                      alt="Samsung"
+                      title="Samsung"
+                      src="/brand/Samsung.svg"
+                    />
+                  </a>
+                  <div className="brand-name">Samsung</div>
+                </div>
+                <div>
+                  <a href="/buy-used-refurbished-google" className="brand">
+                    <img
+                      width="70"
+                      height="70"
+                      alt="Google"
+                      title="Google"
+                      src="/brand/Google.svg"
+                    />
+                  </a>
+                  <div className="brand-name">Google</div>
+                </div>
+              </div>):
+              (
+                <div
+                  className="brands"
+                >
+                  <div>
+                    <a href="/trade-in-apple" className="brand">
+                      <img
+                        width="70"
+                        height="70"
+                        alt="apple"
+                        title="apple"
+                        src="/brand/Apple.svg"
+                      />
+                    </a>
+                    <div className="brand-name">Apple</div>
+                  </div>
+                  <div>
+                    <a href="/trade-in-samsung" className="brand">
+                      <img
+                        width="70"
+                        height="70"
+                        alt="Samsung"
+                        title="Samsung"
+                        src="/brand/Samsung.svg"
+                      />
+                    </a>
+                    <div className="brand-name">Samsung</div>
+                  </div>
+                  <div>
+                    <a href="/trade-in-phone" className="brand">
+                      <img
+                        width="70"
+                        height="70"
+                        alt="Google"
+                        title="Google"
+                        src="/svg/dot.svg"
+                        className="three-dot"
+                      />
+                    </a>
+                    <div className="brand-name">Other</div>
+                  </div>
+                </div>
+              )
+            }
           </div>
-
           <img
             src="/Home.png"
             alt="home"
@@ -204,18 +192,15 @@ export default function Home({
             Buy Newly Listed Certified Used Phone
           </h2>
 
-          <amp-selector
-            role="tablist"
-            className="brands"
-            on={`select: AMP.setState({ currentTab: { current: event.targetOption }, selected: selected ? selected : "Apple" })`}
-          >
-            <div role="tab" selected option="apple">
+   
+          <div className="brands">
+            <div role="tab">
               Apple
             </div>
-            <div role="tab" option="samsung">
+            <div role="tab">
               Samsung
             </div>
-          </amp-selector>
+          </div>  
 
           <div
             className="phone-list-show"
@@ -296,20 +281,14 @@ export default function Home({
 
         <div className="home-phones border-top">
           <h2 className="home-secondary-title">Trade in / Sell Your Phone</h2>
-
-          <amp-selector
-            role="tablist"
-            className="brands"
-            on={`select: AMP.setState({ currentSellTab: { current: event.targetOption }, selected: selected ? selected : "Apple" })`}
-          >
-            <div role="tab" selected option="apple">
+          <div className="brands">
+            <div role="tab">
               Apple
             </div>
-            <div role="tab" option="samsung">
+            <div role="tab">
               Samsung
             </div>
-          </amp-selector>
-
+          </div>
           <div
             className="phone-list-show"
             data-amp-bind-class="currentSellTab.current == 'apple' ? 'phone-list-show' : 'phone-list-hidden'"
@@ -420,40 +399,40 @@ export default function Home({
           </div>
 
           <div className="reviews-list mobile-review-list">
-            <amp-carousel
-              type="slides"
-              height="290"
-              role="region"
-              layout="flex-item"
-              controls
-              // className="reviews-list mobile-reviews-list"
-            >
-              {reviewsInfo.reviews.map((x, index) => (
-                <div
-                  className="review-card"
-                  key={`${x.store_review_id}-${index}`}
-                >
-                  <div className="review-info">
-                    <div className="review-ratings">
-                      {new Array(x.rating).fill("").map((x, index) => (
-                        <img
-                          key={index}
-                          width="30"
-                          height="30"
-                          alt="rating"
-                          src="/rating.svg"
-                        />
-                      ))}
+            <div className="review-box">
+              {reviewsInfo.reviews.map((x, index) => {
+                return rangeIndex === index ?
+                  (<div key={x.store_review_id} className="review-card">
+                    <div className="review-author">{`${x.reviewer.first_name} ${x.reviewer.last_name}`}</div>
+                    <div className="review-info">
+                      <div className="review-ratings">
+                        {new Array(x.rating).fill("").map((x, index) => (
+                          <img
+                            key={index}
+                            width="24"
+                            height="24"
+                            alt="rating"
+                            src="/rating.svg"
+                          />
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                  <div
-                    className="review-content"
-                    dangerouslySetInnerHTML={{ __html: x.comments }}
-                  />
-                  <div className="review-author">{`${x.reviewer.first_name} ${x.reviewer.last_name}`}</div>
-                </div>
-              ))}
-            </amp-carousel>
+                    <div
+                      className="review-content"
+                      dangerouslySetInnerHTML={{ __html: x.comments }}
+                    ></div>
+                  </div>)
+                  : false
+              })}
+              { rangeIndex > 0 ? (
+                <img src="/left-white-arrow.png" className="last-one" onClick={() => changeRangeIndex(-1)}/>
+                ) : '' 
+              }
+              { rangeIndex < (reviewsInfo.reviews.length - 1) ? (
+                <img src="/right-white-arrow.png" className="next-one" onClick={() => changeRangeIndex(1)}/>
+                ) : '' 
+              }
+            </div>
           </div>
         </div>
 
@@ -585,8 +564,6 @@ export async function getStaticProps() {
     average_rating: reviewsResponse.stats.average_rating,
     reviews: reviewsResponse.reviews.slice(0, 3),
   };
-
-  console.log("test");
   return {
     props: {
       listedProduct: listedProduct.data,
