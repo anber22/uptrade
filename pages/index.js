@@ -538,8 +538,8 @@ function Test({
     </div>
   );
 }
-export default function Home(){
-  return <Test/>
+export default function Home({...props}){
+  return (<Test {...props}/>)
 }
 export async function getStaticProps() {
   const listedProduct = await fetch(
