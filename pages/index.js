@@ -1,10 +1,10 @@
 import { useState } from "react";
-import Head from "next/head";
 import { NextSeo } from "next-seo";
+import Head from "next/head";
 import { getNavBar } from "../utils/getNavBar";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
-import pageCss from "!raw-loader!../styles/buy-in-phone.css";
+// import pageCss from "!raw-loader!../styles/buy-in-phone.css";
 
 
 export default function Home({
@@ -34,12 +34,12 @@ export default function Home({
           name="facebook-domain-verification"
           content="xqixprug1s29tiyy50ug7ydb5cup5f"
         />
-        <style
+        {/* <style
           // amp-custom=""
           dangerouslySetInnerHTML={{
             __html: pageCss,
           }}
-        />
+        /> */}
       </Head>
      
       <Header navbar={navbar} sellNavbar={sellNavbar} />
