@@ -4,8 +4,7 @@ import Head from "next/head";
 import { getNavBar } from "../utils/getNavBar";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
-// import pageCss from "!raw-loader!../styles/buy-in-phone.css";
-
+import pageCss from "!raw-loader!../styles/buy-in-phone.css";
 
 export default function Home({
   listedProduct,
@@ -19,6 +18,7 @@ export default function Home({
   const [rangeIndex, setRangeIndex] = useState(0)
   const [buyStatus, setBuyStatus] = useState(0)
   const changeRangeIndex = index => {
+    console.log('下一页')
     if (index === 1) {
       if (rangeIndex < reviewsInfo.reviews.length) {
         setRangeIndex(rangeIndex + 1);
@@ -30,16 +30,13 @@ export default function Home({
   return (
     <>
       <Head>
-        {/* <meta
-          name="facebook-domain-verification"
-          content="xqixprug1s29tiyy50ug7ydb5cup5f"
-        /> */}
-        {/* <style
-          // amp-custom=""
+   
+        <style
+          amp-custom=""
           dangerouslySetInnerHTML={{
             __html: pageCss,
           }}
-        /> */}
+        />
       </Head>
      
       <Header navbar={navbar} sellNavbar={sellNavbar} />
