@@ -30,10 +30,10 @@ export default function Home({
   return (
     <>
       <Head>
-        <meta
+        {/* <meta
           name="facebook-domain-verification"
           content="xqixprug1s29tiyy50ug7ydb5cup5f"
-        />
+        /> */}
         {/* <style
           // amp-custom=""
           dangerouslySetInnerHTML={{
