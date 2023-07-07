@@ -14,7 +14,7 @@ export default function Home({
   sellNavbar,
   appleList,
   sellAppleList,
-  sellListData,
+  sellListData
 }) {
   const [rangeIndex, setRangeIndex] = useState(0)
   const [buyStatus, setBuyStatus] = useState(0)
@@ -80,10 +80,10 @@ export default function Home({
             }
             <div className="brand-tablist">
               <h3 className={ "sub-title cursor" + (buyStatus === 0 ? " title-selected" : '') } onClick={() => {setBuyStatus(0)}}>
-                Buy a Phone { buyStatus }
+                Buy a Phone
               </h3>
               <h3 className={ "sub-title cursor" + (buyStatus === 1 ? " title-selected" : '') } onClick={() => {setBuyStatus(1)}}>
-                Trade in/Sell { buyStatus }
+                Trade in/Sell
               </h3>
             </div>
             {
@@ -199,7 +199,7 @@ export default function Home({
 
           <div
             className="phone-list-show"
-            data-amp-bind-class="currentTab.current == 'apple' ? 'phone-list-show' : 'phone-list-hidden'"
+            // data-amp-bind-class="currentTab.current == 'apple' ? 'phone-list-show' : 'phone-list-hidden'"
           >
             {listedProduct["Apple"].map((x, index) => (
               <a href={x.url} key={index}>
@@ -234,7 +234,7 @@ export default function Home({
 
           <div
             className="phone-list-hidden"
-            data-amp-bind-class="currentTab.current == 'samsung' ? 'phone-list-show' : 'phone-list-hidden'"
+            // data-amp-bind-class="currentTab.current == 'samsung' ? 'phone-list-show' : 'phone-list-hidden'"
           >
             {listedProduct["Samsung"].map((x, index) => (
               <a href={x.url} key={index}>
@@ -286,7 +286,7 @@ export default function Home({
           </div>
           <div
             className="phone-list-show"
-            data-amp-bind-class="currentSellTab.current == 'apple' ? 'phone-list-show' : 'phone-list-hidden'"
+            // data-amp-bind-class="currentSellTab.current == 'apple' ? 'phone-list-show' : 'phone-list-hidden'"
           >
             {sellListData["Apple"].map((x, index) => (
               <a href={x.url} key={index}>
@@ -320,7 +320,7 @@ export default function Home({
 
           <div
             className="phone-list-hidden"
-            data-amp-bind-class="currentSellTab.current == 'samsung' ? 'phone-list-show' : 'phone-list-hidden'"
+            // data-amp-bind-class="currentSellTab.current == 'samsung' ? 'phone-list-show' : 'phone-list-hidden'"
           >
             {sellListData["Samsung"].map((x, index) => (
               <a href={x.url} key={index}>
