@@ -18,7 +18,7 @@ export default function Home({
 }) {
   const [rangeIndex, setRangeIndex] = useState(0)
   const [buyStatus, setBuyStatus] = useState(0)
-  const changeRangeIndex = (index) => {
+  const changeRangeIndex = index => {
     if (index === 1) {
       if (rangeIndex < reviewsInfo.reviews.length) {
         setRangeIndex(rangeIndex + 1);
@@ -35,12 +35,15 @@ export default function Home({
           content="xqixprug1s29tiyy50ug7ydb5cup5f"
         />
         <style
-          amp-custom=""
+          // amp-custom=""
           dangerouslySetInnerHTML={{
             __html: pageCss,
           }}
         />
       </Head>
+     
+      <Header navbar={navbar} sellNavbar={sellNavbar} />
+      <main className="home-page">
       <NextSeo
         title="Buy Used Phones | Sell My Phone | UpTrade"
         description="Experience the UpTrade Difference. Buy the Best Certified Used Phones for Less. High Quality Refurbished Phones. Money Back Guarantee. Sell Your Used Phone For More. Fast and Easy. Free Shipping."
@@ -61,8 +64,6 @@ export default function Home({
           site_name: "UpTrade",
         }}
       />
-      <Header navbar={navbar} sellNavbar={sellNavbar} />
-      <main className="home-page">
         <div className="home-content">
           <div className="home-left">
             { buyStatus === 0 ? (<h1
