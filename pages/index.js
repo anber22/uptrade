@@ -40,7 +40,7 @@ export default function Home({
       </Head>
      
       <Header navbar={navbar} sellNavbar={sellNavbar} />
-      <main className="home-page">
+      <main className="home-page" onClick={() => changeRangeIndex(1)}>
         <NextSeo
           title="Buy Used Phones | Sell My Phone | UpTrade"
           description="Experience the UpTrade Difference. Buy the Best Certified Used Phones for Less. High Quality Refurbished Phones. Money Back Guarantee. Sell Your Used Phone For More. Fast and Easy. Free Shipping."
