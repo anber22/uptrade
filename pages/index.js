@@ -6,7 +6,8 @@ import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import pageCss from "!raw-loader!../styles/buy-in-phone.css";
 
-function Test({
+
+export default function Home({
   listedProduct,
   reviewsInfo,
   navbar,
@@ -79,10 +80,10 @@ function Test({
             }
             <div className="brand-tablist">
               <h3 className={ "sub-title cursor" + (buyStatus === 0 ? " title-selected" : '') } onClick={() => {setBuyStatus(0)}}>
-                Buy a Phone
+                Buy a Phone { buyStatus }
               </h3>
               <h3 className={ "sub-title cursor" + (buyStatus === 1 ? " title-selected" : '') } onClick={() => {setBuyStatus(1)}}>
-                Trade in/Sell
+                Trade in/Sell { buyStatus }
               </h3>
             </div>
             {
@@ -538,9 +539,7 @@ function Test({
     </div>
   );
 }
-export default function Home({...props}){
-  return (<Test {...props}/>)
-}
+
 export async function getStaticProps() {
   const listedProduct = await fetch(
     "https://api-v2.276qa.com/search/newly-listed-product"
