@@ -190,7 +190,7 @@ export default function BuyPhone({
       const ids = searchKeys.selectedValues.map((x) => x.categoryValueId);
 
       const response = await fetch(
-        urlcat("http://47.252.36.141:7860/search/product/macbook/condition/list", {
+        urlcat("https://api-v2.276qa.com/search/product/macbook/condition/list", {
           parentCategoryValueIds: ids.join(","),
         })
       ).then((response) => response.json());
@@ -256,7 +256,7 @@ export default function BuyPhone({
         orderBy: searchKeys.orderBy,
       };
 
-      const listData = await fetch("http://47.252.36.141:7860/search/product/macbook/result/list", {
+      const listData = await fetch("https://api-v2.276qa.com/search/product/macbook/result/list", {
         method: "POST",
         headers: {
           ["Content-Type"]: "application/json",
@@ -974,9 +974,9 @@ export async function getStaticProps() {
     orderBy: "RECOMMENDED",
   };
   const data = await fetch(
-    "http://47.252.36.141:7860/search/product/macbook/condition/list"
+    "https://api-v2.276qa.com/search/product/macbook/condition/list"
   ).then((response) => response.json());
-  const listData = await fetch("http://47.252.36.141:7860/search/product/macbook/result/list", {
+  const listData = await fetch("https://api-v2.276qa.com/search/product/macbook/result/list", {
     method: "POST",
     headers: {
       ["Content-Type"]: "application/json",

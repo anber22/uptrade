@@ -12,7 +12,7 @@ export default function Search() {
 
       try {
         const productData = await fetch(
-          urlcat("http://47.252.36.141:7860/home/search/product", {
+          urlcat("https://api-v2.276qa.com/home/search/product", {
             searchKey: searchKey,
           })
         ).then((response) => response.json());
@@ -38,7 +38,7 @@ export default function Search() {
       modelId: option.id,
       modelType: option.type
     }
-    const result = await fetch("http://47.252.36.141:7860/home/search/product", {
+    const result = await fetch("https://api-v2.276qa.com/home/search/product", {
       method: "POST",
       headers: {
         ["Content-Type"]: "application/json",
