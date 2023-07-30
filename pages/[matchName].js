@@ -1746,7 +1746,6 @@ export async function getStaticPaths() {
     JSON.stringify(result)
   );
 
-  console.log('设备名称', x.productName)
 
   const buyPaths = result.map((x) => {
     if (x.skuType === "CARRIER") {
