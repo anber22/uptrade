@@ -20,7 +20,6 @@ export default function Home({
   const [buyType, setBuyType] = useState(0)
   const [tradeInType, setTradeInType] = useState(0)
   const changeRangeIndex = index => {
-    console.log('下一页')
     if (index === 1) {
       if (rangeIndex < reviewsInfo.reviews.length) {
         setRangeIndex(rangeIndex + 1);

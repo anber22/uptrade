@@ -134,7 +134,6 @@ function BuyModel({
   const [rangeIndex, setRangeIndex] = useState(0)
   const [nodeIndex, setNodeIndex] = useState(-1);
   const changeFAQ = (index) => {
-    console.log('节点');
     if (nodeIndex === index) {
       nodeIndex = setNodeIndex(-1);
     } else {
@@ -1730,7 +1729,7 @@ export async function getStaticPaths() {
   const response = await fetch(
     "https://uptrade-datafeed.s3.us-east-2.amazonaws.com/buy-low-price-data.json"
   ).then((response) => response.json());
-
+  
   const skuResponse = await fetch(
     "https://uptrade-datafeed.s3.us-east-2.amazonaws.com/sku-statistic-data.json"
   ).then((response) => response.json());
@@ -1741,14 +1740,17 @@ export async function getStaticPaths() {
     ...skuResponse.data.colorData,
     ...skuResponse.data.storageData,
   ];
-
+  
   await fs.writeFile(
     path.join(process.cwd(), "cache.json"),
     JSON.stringify(result)
   );
 
+  console.log('设备名称', x.productName)
+
   const buyPaths = result.map((x) => {
     if (x.skuType === "CARRIER") {
+
       return {
         params: {
           matchName: `buy-used-refurbished-${x.productName
@@ -1879,7 +1881,6 @@ async function getBuyProps(params) {
     reviewsResponse = await fetch(
       "https://api.reviews.io/merchant/reviews?page=0&per_page=1000&order=rating&sort=highest_rated&store=uptradeit-com"
     ).then((response) => response.json());
-
     reviewsResponseCache = reviewsResponse;
   }
 

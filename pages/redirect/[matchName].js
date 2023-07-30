@@ -24,8 +24,6 @@ export default function Redirect() {
       setId(window.urlObj.id)
       setType(window.urlObj.type)
       setMerchant(window.urlObj.merchant);
-
-      console.log(window.urlObj.redirectUrl)
       if (!window.urlObj.redirectUrl) return;
   
       const path = location.pathname?.replace("/redirect/", "");
@@ -47,7 +45,6 @@ export default function Redirect() {
           utm_medium: "affiliate",
           utm_campaign: "uptradeit.com",
         });
-        console.log('url', url)
         window.location.href = url;
       });
     } else if(window && !window.urlObj) {
