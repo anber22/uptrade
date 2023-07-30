@@ -498,16 +498,9 @@ export default function BuyPhone({
             >
               Search
             </button> */}
-            <svg
-              className="form-search-icon"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-              onClick={() => onSearchClick()}
-            >
-              <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
-            </svg>
+           
           </div>
-          <div
+          {/* <div
             className="carrier-options"
             style={{
               height: !matchMedia && !chevronExpand ? 88 : undefined,
@@ -528,9 +521,9 @@ export default function BuyPhone({
                 {item.name}
               </div>
             ))}
-          </div>
+          </div> */}
 
-          {!matchMedia ? (
+          {/* {!matchMedia ? (
             <div
               style={{
                 display: "flex",
@@ -549,7 +542,7 @@ export default function BuyPhone({
                 onClick={() => setChevronExpand(!chevronExpand)}
               />
             </div>
-          ) : null}
+          ) : null} */}
 
           <div
             style={{ position: !isFocus ? "sticky" : undefined }}
@@ -863,7 +856,11 @@ export default function BuyPhone({
                       <div className="description">
                         <span className="attr-name">{item.name}</span>
                         <span className="attr">
-                          {`${item.carrier} ${item.storage} ${item.color}`}
+                        {`${item.year} ${item.cpu} `}
+                        <br/>
+                        {`${item.screenSize} ${item.color}`}
+                        <br/>
+                        {`${item.ram} ${item.storage}`}
                         </span>
                       </div>
 
@@ -985,7 +982,7 @@ export async function getStaticProps() {
   }).then((response) => response.json());
   console.log('xxx', data.data)
   console.log('xxx', data.data[3].values)
-  console.log('bbb', listData)
+  console.log('bbb', listData.data)
   const productData = await fetch(
     "https://api-single.uptradeit.com/search/product"
   ).then((response) => response.json());
