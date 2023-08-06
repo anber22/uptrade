@@ -2905,28 +2905,28 @@ export async function getStaticPaths() {
   const skuResponse = await fetch(
     "https://uptrade-datafeed.s3.us-east-2.amazonaws.com/sku-statistic-data.json"
   ).then((response) => response.json());
-
-  const result = [
+  const phoneRes = [
     ...response.data,
     ...skuResponse.data.carrierData,
     ...skuResponse.data.colorData,
-    ...skuResponse.data.storageData,
+    ...skuResponse.data.storageData
+  ];
+  const macBookResult = [
     ...macBookRes,
     ...skuMacBookRes
   ];
   
   await fs.writeFile(
     path.join(process.cwd(), "cache.json"),
-    JSON.stringify(result)
+    JSON.stringify(phoneRes)
+  );
+  await fs.writeFile(
+    path.join(process.cwd(), "macbookCache.json"),
+    JSON.stringify(macBookResult)
   );
 
-  const pathRes = [
-    ...response.data,
-    ...skuResponse.data.carrierData,
-    ...skuResponse.data.colorData,
-    ...skuResponse.data.storageData
-  ];
-  const buyPaths = pathRes.map((x) => {
+
+  const buyPaths = phoneRes.map((x) => {
     if (x.skuType === "CARRIER") {
 
       return {
@@ -2999,7 +2999,7 @@ export async function getStaticPaths() {
       },
     };
   });
-  const buyMacBookPaths = [...macBookRes, ...skuMacBookRes].map((x) => {
+  const buyMacBookPaths = macBookResult.map((x) => {
     // console.log(x.generalInfo)
     return {
       params: {
@@ -3051,7 +3051,7 @@ export async function getStaticPaths() {
     };
   });
   console.log(sellPaths[0])
-  return { paths: [...buyPaths, ...buyMacBookPath, ...sellPaths], fallback: false };
+  return { paths: [...buyPaths, ...buyMacBookPaths, ...sellPaths], fallback: false };
 }
 
 let reviewsResponseCache = null;
