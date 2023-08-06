@@ -1478,7 +1478,7 @@ function BuyMacBookModel({
       <NextSeo
         title={generalInfo.link}
         description={generalInfo.metaDescription}
-        canonical={`${process.env.BASEURL}${path}`}
+        canonical={`${process.env.BASEURL}${generalInfo.link}`}
         openGraph={{
           title: generalInfo.link,
           type: "Product.group",
@@ -1489,7 +1489,7 @@ function BuyMacBookModel({
               height: 200,
             },
           ],
-          url: `${process.env.BASEURL}${path}`,
+          url: `${process.env.BASEURL}${generalInfo.link}`,
           description: generalInfo.metaDescription,
           site_name: "UpTrade",
         }}
@@ -3196,12 +3196,12 @@ async function getByMacBookProps(params){
     reviewsResponseCache = reviewsResponse;
   }
 
-  const cache = await fs.readFile(path.join(process.cwd(), "cache.json"));
+  const cache = await fs.readFile(path.join(process.cwd(), "macbookCache.json"));
   const searchResponse = JSON.parse(cache);
 
   const products = searchResponse.filter((x) => {
     return (
-      params.matchName === `${x.generalInfo.path}`
+      params.matchName === `${x.generalInfo.link}`
     );
   });
 
