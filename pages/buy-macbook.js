@@ -513,7 +513,7 @@ console.log('body', body,searchKeys.selectedValues)
                                 <div
                                   key={item.categoryValueId}
                                   onClick={() => {
-                                    onOptionSelect(item);
+                                    onOptionSelect(item, data.name);
                                     setFilterDrawerOpen(false);
                                     document.body.style.overflow = "unset";
                                     document.body.style.position = "unset";
