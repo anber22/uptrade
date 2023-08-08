@@ -106,16 +106,24 @@ export default function BuyPhone({
   const matchMedia = useMediaQuery("(min-width: 1280px");
 
   const onOptionSelect = useCallback(
-    (item, conditionName) => {
+    (item, conditionName, isDelete) => {
       console.log('item', item, conditionName)
       setSearchKeys((prev) => {
-        const values = prev.selectedValues.some(
-          (x) => x.value === item.name
-        )
-          ? prev.selectedValues.filter(
-              (x) => x.value !== item.name
-            )
-          : [...prev.selectedValues, {name: conditionName?.toLowerCase(), value: item.name}];
+        let values = []
+        if(isDelete){
+          values = prev.selectedValues.filter(
+            (x) => x.value !== item.value
+          )
+        }else{
+          values = prev.selectedValues.some(
+            (x) => x.value === item.name
+          )
+            ? prev.selectedValues.filter(
+                (x) => x.value !== item.name
+              )
+            : [...prev.selectedValues, {name: conditionName?.toLowerCase(), value: item.value}];
+        }
+       
         return {
           ...prev,
           searchKey,
@@ -634,7 +642,7 @@ console.log('body', body,searchKeys.selectedValues)
                       width="24px"
                       height="24px"
                       viewBox="0 0 24 24"
-                      onClick={() => onOptionSelect(x)}
+                      onClick={() => onOptionSelect(x, '', true)}
                     >
                       <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
                     </svg>
