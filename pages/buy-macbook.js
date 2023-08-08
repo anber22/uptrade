@@ -121,7 +121,7 @@ export default function BuyPhone({
             ? prev.selectedValues.filter(
                 (x) => x.value !== item.name
               )
-            : [...prev.selectedValues, {name: conditionName?.toLowerCase(), value: item.value}];
+            : [...prev.selectedValues, {name: conditionName?.toLowerCase(), value: item.name}];
         }
        
         return {
