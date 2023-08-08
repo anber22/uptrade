@@ -320,12 +320,12 @@ console.log('body', body,searchKeys.selectedValues)
       models: [],
       merchants: [],
       selectedValues: [
-        year ? {name: 'years', value:year} : undefined,
-        screenSize ? {name: 'screenSizes', value: screenSize} : undefined,
-        cpu ? {name: 'cpus', value: cpu} : undefined,
-        ram ? {name: 'rams', value: ram} : undefined,
-        storage ? {name: 'storages', value:storage} : undefined,
-        color ? {name: 'colors', value: color} : undefined
+        year ? {name: 'year', value:year} : undefined,
+        screenSize ? {name: 'screen size', value: screenSize} : undefined,
+        cpu ? {name: 'cpu', value: cpu} : undefined,
+        ram ? {name: 'ram', value: ram} : undefined,
+        storage ? {name: 'storage', value:storage} : undefined,
+        color ? {name: 'color', value: color} : undefined
       ].filter(Boolean),
     });
 
