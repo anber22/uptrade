@@ -277,7 +277,7 @@ export default function Home({
         <div className="home-phones border-top">
           <h2 className="home-secondary-title">Trade in / Sell Your Phone</h2>
           <div className="brands">
-            <div setTradeInType  
+            <div  
               onClick={() => {setTradeInType(0)}} 
               className={tradeInType === 0 ? 'tab-selected' : ''} 
               role="tab"

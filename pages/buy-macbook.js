@@ -1,7 +1,6 @@
 import { useAsync, useAsyncFn } from "react-use";
 import { useCallback, useState, useEffect } from "react";
 import Pagination from "rc-pagination";
-import SelectSearch from "react-select-search";
 import urlcat from "urlcat";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
@@ -28,7 +27,6 @@ const conditionDescriptions = {
 
 function pageTitleHandler(pageTitle) {
   let showTitle = pageTitle;
-
   if (pageTitle && pageTitle.substr(pageTitle.length - 1) === "|") {
     showTitle = pageTitle.substr(0, pageTitle.length - 1);
   }
@@ -86,7 +84,7 @@ export default function BuyPhone({
   navbar,
   appleList,
   sellNavbar,
-  sellAppleList,
+  sellAppleList
 }) {
   const router = useRouter();
   const [isFocus, setIsFocus] = useState(false);
@@ -109,15 +107,15 @@ export default function BuyPhone({
 
   const onOptionSelect = useCallback(
     (item, conditionName) => {
+      console.log('item', item, conditionName)
       setSearchKeys((prev) => {
         const values = prev.selectedValues.some(
-          (x) => x.categoryValueId === item.categoryValueId
+          (x) => x.value === item.name
         )
           ? prev.selectedValues.filter(
-              (x) => x.categoryValueId !== item.categoryValueId
+              (x) => x.value !== item.name
             )
-          : [...prev.selectedValues, item];
-
+          : [...prev.selectedValues, {name: conditionName?.toLowerCase(), value: item.name}];
         return {
           ...prev,
           searchKey,
@@ -162,7 +160,7 @@ export default function BuyPhone({
     },
     [products, searchKey]
   );
-
+  
   const onOrderClick = useCallback(
     (orderBy) => {
       setSearchKeys((prev) => ({
@@ -190,9 +188,7 @@ export default function BuyPhone({
       const ids = searchKeys.selectedValues.map((x) => x.categoryValueId);
 
       const response = await fetch(
-        urlcat("https://api-v2.276qa.com/search/product/macbook/condition/list", {
-          parentCategoryValueIds: ids.join(","),
-        })
+        urlcat("https://api-v2.276qa.com/search/product/macbook/condition/list")
       ).then((response) => response.json());
 
       if (!response.success) return initialConditions;
@@ -204,6 +200,7 @@ export default function BuyPhone({
   }, [searchKeys.selectedValues, initialConditions]);
 
   const { value: data = initData } = useAsync(async () => {
+    console.log('触发遍历',conditions)
     if (
       !searchKeys.selectedValues.length &&
       searchKeys.pageNum === 1 &&
@@ -212,7 +209,7 @@ export default function BuyPhone({
     ) {
       return initData;
     }
-
+    console.log('searchKeys.selectedValues', searchKeys.selectedValues)
     try {
       // filter data
       const body = {
@@ -220,42 +217,42 @@ export default function BuyPhone({
         pageNum: searchKeys.pageNum,
         pageSize: 20,
         conditions: searchKeys.selectedValues
-          .filter((x) => x.categoryId === 1)
-          .map((x) => x.name),
+          .filter((x) => x.name === 'condition')
+          .map((x) => x.value),
         brands: searchKeys.selectedValues
-          .filter((x) => x.categoryId === 2)
-          .map((x) => x.name),
+          .filter((x) => x.name === 'brand')
+          .map((x) => x.value),
         models: searchKeys.selectedValues
-          .filter((x) => x.categoryId === 3)
-          .map((x) => x.name),
+          .filter((x) => x.name === 'model')
+          .map((x) => x.value),
         screenSizes: searchKeys.selectedValues
-          .filter((x) => x.categoryId === 4)
-          .map((x) => x.name),
+          .filter((x) => x.name === 'screen size')
+          .map((x) => x.value),
         years: searchKeys.selectedValues
-          .filter((x) => x.categoryId === 5)
-          .map((x) => x.name),
+          .filter((x) => x.name === 'years')
+          .map((x) => x.value),
         cpus: searchKeys.selectedValues
-          .filter((x) => x.categoryId === 6)
-          .map((x) => x.name),
+          .filter((x) => x.name === 'cpu')
+          .map((x) => x.value),
         rams: searchKeys.selectedValues
-          .filter((x) => x.categoryId === 7)
-          .map((x) => x.name),
+          .filter((x) => x.name === 'ram')
+          .map((x) => x.value),
         storages: searchKeys.selectedValues
-          .filter((x) => x.categoryId === 8)
-          .map((x) => x.name),
+          .filter((x) => x.name === 'storage')
+          .map((x) => x.value),
         colors: searchKeys.selectedValues
-          .filter((x) => x.categoryId === 9)
-          .map((x) => x.name),
+          .filter((x) => x.name === 'color')
+          .map((x) => x.value),
         prices: searchKeys.selectedValues
-          .filter((x) => x.categoryId === 10)
-          .map((x) => x.name),
+          .filter((x) => x.name === 'price')
+          .map((x) => x.value),
         merchants: searchKeys.selectedValues
-          .filter((x) => x.categoryId === 11)
-          .map((x) => x.name),
+          .filter((x) => x.name === 'merchant')
+          .map((x) => x.value),
         searchKey: searchKeys.searchKey,
         orderBy: searchKeys.orderBy,
       };
-
+console.log('body', body,searchKeys.selectedValues)
       const listData = await fetch("https://api-v2.276qa.com/search/product/macbook/result/list", {
         method: "POST",
         headers: {
@@ -281,19 +278,32 @@ export default function BuyPhone({
     );
   }, []);
 
+  const getId = (key, value) => {
+    // console.log('aaa', conditions)
+    // const target = conditions.find(item => item.name.toLowerCase() === key)
+    // console.log('target', key, target)
+
+    return
+  }
   useEffect(() => {
     if (!router?.query) return;
-
     const {
-      brand,
-      brandCategoryValueId,
-      modelName,
-      modelId,
-      searchKey,
+      year,
+      screenSize,
+      cpu,
+      ram,
+      storage,
+      color,
       toResult,
     } = router.query;
-
+    console.log('xxx', year,
+    screenSize,
+    cpu,
+    ram,
+    storage,
+    color)
     setSearchKey(searchKey ?? "");
+
     setSearchKeys({
       pageNum: 1,
       searchKey: searchKey ?? "",
@@ -302,21 +312,17 @@ export default function BuyPhone({
       models: [],
       merchants: [],
       selectedValues: [
-        modelId
-          ? { name: modelName, categoryValueId: Number(modelId), categoryId: 4 }
-          : undefined,
-        brand
-          ? {
-              name: brand,
-              categoryValueId: Number(brandCategoryValueId),
-              categoryId: 3,
-            }
-          : undefined,
+        year ? {name: 'years', value:year} : undefined,
+        screenSize ? {name: 'screenSizes', value: screenSize} : undefined,
+        cpu ? {name: 'cpus', value: cpu} : undefined,
+        ram ? {name: 'rams', value: ram} : undefined,
+        storage ? {name: 'storages', value:storage} : undefined,
+        color ? {name: 'colors', value: color} : undefined
       ].filter(Boolean),
     });
 
     if (toResult) {
-      window.scrollTo(0, 350);
+      window.scrollTo(0, 0);
     }
   }, [router]);
   const getUrl = item =>{
@@ -413,10 +419,10 @@ export default function BuyPhone({
                     ? data.values.map((item) => (
                         <div
                           key={item.categoryValueId}
-                          onClick={() => onOptionSelect(item)}
+                          onClick={() => onOptionSelect(item, data.name)}
                           className={`condition-item ${
                             searchKeys.selectedValues.some(
-                              (x) => x.categoryValueId === item.categoryValueId
+                              (x) => x.value === item.name
                             )
                               ? "selected-condition-item"
                               : undefined
@@ -439,110 +445,6 @@ export default function BuyPhone({
             Experience peace of mind and simplified shopping. From thousands of sellers, we select the best certified resellers for top-notch quality. Our apple-to-apple comparisons make finding the best price effortless. Buy Used Without The Risk.
             </h2>
           </div>
-
-          <div className="buy-phone-search-form">
-            {/* <SelectSearch
-              options={products}
-              name="search"
-              value={searchKey}
-              onChange={(key) => setSearchKey(key)}
-              placeholder="Search MacBook model"
-              search
-              getOptions={getOptions}
-              debounce={1000}
-              renderValue={(props, snapshot, className) => {
-                return (
-                  <input
-                    {...props}
-                    value={searchKey}
-                    onChange={(event) => {
-                      setSearchKey(event.target.value);
-                      props.onChange(event);
-                    }}
-                    onKeyDown={(event) => {
-                      props.onKeyDown(event);
-                      if (event.key === "Enter") {
-                        onSearchClick();
-                      }
-                    }}
-                    onFocus={(e) => {
-                      props.onFocus(e);
-                      setIsFocus(true);
-                    }}
-                    onBlur={(e) => {
-                      props.onBlur(e);
-                      setIsFocus(false);
-                    }}
-                    className={className}
-                  />
-                );
-              }}
-              renderOption={(optionsProps, optionData) => {
-                return (
-                  <button
-                    {...optionsProps}
-                    onMouseDown={(event) => {
-                      optionsProps.onMouseDown(event);
-                      onSearchClick(optionData.name);
-                      addRank(optionData.name);
-                    }}
-                  >
-                    {optionData.name}
-                  </button>
-                );
-              }}
-            />
-            <button
-              className="btn btn-primary search-button"
-              onClick={() => onSearchClick()}
-            >
-              Search
-            </button> */}
-           
-          </div>
-          {/* <div
-            className="carrier-options"
-            style={{
-              height: !matchMedia && !chevronExpand ? 88 : undefined,
-            }}
-          >
-            {carrierOptions.map((item) => (
-              <div
-                key={item.categoryValueId}
-                className={`carrier-option ${
-                  searchKeys.selectedValues.some(
-                    (x) => x.categoryValueId === item.categoryValueId
-                  )
-                    ? "selected-carrier-option"
-                    : undefined
-                }`}
-                onClick={() => onOptionSelect(item)}
-              >
-                {item.name}
-              </div>
-            ))}
-          </div> */}
-
-          {/* {!matchMedia ? (
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                marginTop: "12px",
-              }}
-            >
-              <img
-                src="/svg/chevron-states.svg"
-                className="chevron"
-                width="18"
-                height="18"
-                style={{
-                  transform: chevronExpand ? "rotate(180deg)" : undefined,
-                }}
-                onClick={() => setChevronExpand(!chevronExpand)}
-              />
-            </div>
-          ) : null} */}
 
           <div
             style={{ position: !isFocus ? "sticky" : undefined }}
@@ -619,8 +521,8 @@ export default function BuyPhone({
                                   className={`condition-item ${
                                     searchKeys.selectedValues.some(
                                       (x) =>
-                                        x.categoryValueId ===
-                                        item.categoryValueId
+                                        x.value ===
+                                        item.name
                                     )
                                       ? "selected-condition-item"
                                       : undefined
@@ -727,7 +629,7 @@ export default function BuyPhone({
               <div className="filter-options">
                 {searchKeys.selectedValues.map((x) => (
                   <div className="filter-option" key={x.categoryValueId}>
-                    {x.name}
+                    {x.value}
                     <svg
                       width="24px"
                       height="24px"

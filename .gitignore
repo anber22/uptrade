@@ -34,3 +34,4 @@ yarn-error.log*
 .idea
 cache.json
 sellCache.json
+macbookCache.json

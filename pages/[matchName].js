@@ -1256,6 +1256,7 @@ function BuyMacBookModel({
   priceTrends,
   appleList,
   sellNavbar,
+  skuType,
   sellAppleList,
   navbar
 }) {
@@ -1301,6 +1302,9 @@ function BuyMacBookModel({
     } else if (rangeIndex > 0) {
       setRangeIndex(rangeIndex - 1);
     }
+  }
+  const getUrlParams = () => {
+    
   }
   return (
     <div>
@@ -1467,7 +1471,8 @@ function BuyMacBookModel({
             }}
           />
         ) : null}
-         */}
+         */
+         }
          <style
           amp-custom=""
           dangerouslySetInnerHTML={{
@@ -1626,11 +1631,25 @@ function BuyMacBookModel({
           <div className="left">
             <h1 className="buy-model-page-title">
               Best Certified Used {productInfo.name}{" "}
+              {skuType && skuType.year ? `${skuType.year} ` : ''}
+              {skuType && skuType.screenSize ? `${skuType.screenSize} ` : ''}
+              {skuType && skuType.cpu ? `${skuType.cpu} ` : ''}
+              {skuType && skuType.ram ? `${skuType.ram} ` : ''}
+              {skuType && skuType.storage ? `${skuType.storage} ` : ''}
+              {skuType && skuType.color ? `${skuType.color} ` : ''}
+          
+
               {/* {skuType && skuType === "CARRIER" ? carrier : null}
               {skuType && skuType === "COLOR" ? color : null}
               {skuType && skuType === "STORAGE" ? storage : null} */}
                and{" "}
               Refurbished {productInfo.name}{" "}
+              {skuType && skuType.year ? `${skuType.year} ` : ''}
+              {skuType && skuType.screenSize ? `${skuType.screenSize} ` : ''}
+              {skuType && skuType.cpu ? `${skuType.cpu} ` : ''}
+              {skuType && skuType.ram ? `${skuType.ram} ` : ''}
+              {skuType && skuType.storage ? `${skuType.storage} ` : ''}
+              {skuType && skuType.color ? `${skuType.color} ` : ''}
               {/* {skuType && skuType === "CARRIER" ? carrier : null}
               {skuType && skuType === "COLOR" ? color : null}
               {skuType && skuType === "STORAGE" ? storage : null} */}
@@ -1695,17 +1714,14 @@ function BuyMacBookModel({
                 <a
                   href={urlcat(
                     "/buy-macbook",
-                    // type === "CARRIER"
-                    //   ? 
-                    { toResult: 1 }
-                    //   : !price || type === "BRAND"
-                    //   ? { brand, brandCategoryValueId, toResult: 1 }
-                    //   :
-                      //  {
-                      //     modelName: productInfo.name,
-                      //     modelId: productInfo.productId,
-                      //     toResult: 1,
-                      //   }
+                    skuType ? 
+                    {
+                      ...skuType,
+                      toResult: 1
+                    }:
+                    {
+                      toResult: 1
+                    }
                   )}
                 >
                   <button className="model-see-more">View Products</button>
@@ -1764,17 +1780,14 @@ function BuyMacBookModel({
               <a
                 href={urlcat(
                   "/buy-macbook",
-                  // type === "CARRIER"
-                  //   ? 
-                  { toResult: 1 }
-                  //   : !price || type === "BRAND"
-                  //   ? { brand, brandCategoryValueId, toResult: 1 }
-                  //   : 
-                    // {
-                    //     modelName: productInfo.name,
-                    //     modelId: productInfo.productId,
-                    //     toResult: 1
-                    //   }
+                  skuType ? 
+                    {
+                      ...skuType,
+                      toResult: 1
+                    }:
+                    {
+                      toResult: 1
+                    }
                 )}
               >
                 <button className="model-see-more">View Products</button>
@@ -2015,17 +2028,14 @@ function BuyMacBookModel({
               <a
                 href={urlcat(
                   "/buy-macbook",
-                  // type === "CARRIER"
-                  //   ? 
-                  { toResult: 1 }
-                  //   : !price || type === "BRAND"
-                  //   ? { brand, brandCategoryValueId, toResult: 1 }
-                  //   : 
-                    // {
-                    //     modelName: productInfo.name,
-                    //     modelId: productInfo.productId,
-                    //     toResult: 1,
-                    //   }
+                  skuType ? 
+                  {
+                    ...skuType,
+                    toResult: 1
+                  }:
+                  {
+                    toResult: 1
+                  }
                 )}
               >
                 <button>More</button>
@@ -2080,16 +2090,14 @@ function BuyMacBookModel({
               className="view-all-button"
               href={urlcat(
                 "/buy-macbook",
-                // type === "CARRIER"
-                  // ?
-                   { toResult: 1 }
-                  // : !price || type === "BRAND"
-                  // ? { brand, brandCategoryValueId, toResult: 1 }
-                  // : {
-                  //     modelName: productName,
-                  //     modelId: productCategoryValueId,
-                  //     toResult: 1,
-                  //   }
+                skuType ? 
+                {
+                  ...skuType,
+                  toResult: 1
+                }:
+                {
+                  toResult: 1
+                }
               )}
             >
               <button className="primary-button">More</button>
@@ -2383,16 +2391,14 @@ function BuyMacBookModel({
           <a
             href={urlcat(
               "/buy-macbook",
-                generalInfo.type === "CARRIER"
-                ? { toResult: 1 }
-                // : !price || generalInfo.type === "BRAND"
-                // ? { brand, brandCategoryValueId, toResult: 1 }
-                : 
-                {
-                    // modelName: productInfo.name,
-                    // modelId: productInfo.productId,
-                    toResult: 1,
-                }
+              skuType ? 
+              {
+                ...skuType,
+                toResult: 1
+              }:
+              {
+                toResult: 1
+              }
             )}
           >
             <button className="primary-button">View Products</button>
@@ -2893,6 +2899,7 @@ export async function getStaticPaths() {
   const response = await fetch(
     "https://uptrade-datafeed.s3.us-east-2.amazonaws.com/buy-low-price-data.json"
   ).then((response) => response.json());
+  // buy-macbook数据获取
   const macBookRes = await fetch(
     "https://uptrtest.s3.us-east-2.amazonaws.com/buy-macbook-model.json"
   ).then((response) => response.json());
@@ -3205,7 +3212,7 @@ async function getByMacBookProps(params){
     );
   });
 
-  const product = searchResponse[0];
+  const product = products[0];
 
   const reviewsInfo = {
     total: reviewsResponse.stats.total_reviews,

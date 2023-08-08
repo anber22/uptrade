@@ -53,7 +53,7 @@ export default function Search() {
       name="search"
       value={searchKey}
       onChange={(key) => setSearchKey(key)}
-      placeholder="Search phone manufacturer and model"
+      placeholder="Search product"
       search
       getOptions={getOptions}
       debounce={1000}
